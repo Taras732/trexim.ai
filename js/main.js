@@ -96,6 +96,34 @@ const translations = {
 
 let currentLanguage = 'uk';
 
+// ==================== THEME SYSTEM ====================
+const themeToggle = document.getElementById('theme-toggle');
+const sunIcon = document.querySelector('.sun-icon');
+const moonIcon = document.querySelector('.moon-icon');
+const htmlElement = document.documentElement;
+
+// Initialize theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.body.classList.toggle('light-theme', savedTheme === 'light');
+updateThemeIcons();
+
+// Theme toggle handler
+themeToggle.addEventListener('click', () => {
+  const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.body.classList.toggle('light-theme');
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcons();
+});
+
+function updateThemeIcons() {
+  const isLight = document.body.classList.contains('light-theme');
+  sunIcon.style.display = isLight ? 'none' : 'block';
+  moonIcon.style.display = isLight ? 'block' : 'none';
+}
+
+
 // ==================== LANGUAGE SWITCHING ====================
 function switchLanguage(lang) {
     currentLanguage = lang;
